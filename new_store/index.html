@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">ADD
+            PRODUCT</button>
+        <a href="category.html">
+            <button type="button" class="btn btn-primary float-end">ADD CATEGORY</button>
+        </a>
+
+        <div id="productList" class="row">
+            <template id="productListTemplate">
+                <div class="card mt-5" style="width: 18rem; margin-left: 15px;">
+                    <div>
+                        <img class="card-img-top" id="prodImg" src="" alt="Card image cap">
+                    </div>
+                    <div class="card-body col">
+                        <input type="hidden" id="prodId" class="prodId">
+                        <p class="card-text">Product Name:
+                            <span id="prodName">Product</span>
+                        </p>
+                        <p class="card-text">Product Category:
+                            <span id="prodCat">Category</span>
+                        </p>
+                        <div>
+                            <span>
+                                <p class="card-text">Qauntity:
+                                    <span id="prodStock">0</span>
+                                    <i class="bi bi-plus float-end" type="button"
+                                        onclick="updateStock(this.closest('.card').querySelector('.prodId').value, this.closest('.card').querySelector('#prodStock').textContent)"></i>
+                                </p>
+                            </span>
+                        </div>
+                        <div class="mt-5">
+                            <button type="button" class="btn btn-outline-primary btnProdUpdate" data-bs-toggle="modal"
+                                data-bs-target="#addCategoryModal">EDIT</button>
+                            <button type="button" class="btn btn-outline-danger float-end btnProdDelete"
+                                id="btnProdDelete">DELETE</button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+    </div>
+
+
+    <!-- Add Product Modal -->
+    <div class="modal" id="addProductModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="productForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Product</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                        <input class="form-control" id="pName" class="pName" type="text" placeholder="Product Name">
+                        <select class="form-select mt-2" id="pCat"></select>
+                        <input class="form-control mt-2" id="pQa" type="text" placeholder="Qauntity">
+                        <input class="form-control mt-2" id="pPic" type="file" placeholder="Upload file">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btnAddProd"">Save
+                            changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Product Modal -->
+    <div class="modal" id="addCategoryModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Category</h5>
+                </div>
+                <form action="" class="UpDateff">
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                        <input type="hidden" id="pEId">
+                        <input class="form-control" id="pEName" class="pEName" type="text" placeholder="Product Name">
+                        <select class="form-select mt-2" id="pUpCat"></select>
+                        <input class="form-control mt-2" id="pEQa" type="text" placeholder="Qauntity">
+                        <input class="form-control mt-2" id="pEPic" type="file" placeholder="Upload file">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="productUpdateMan">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
