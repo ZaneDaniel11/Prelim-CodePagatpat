@@ -24,7 +24,7 @@ function loadProductData() {
   loadProductData();
 
   $.ajax({
-    url: "api/category/read.php",
+    url: 'api/categories-read.php',
     method: "GET",
     dataType: "json",
     success: function(data) {
@@ -51,36 +51,149 @@ function loadProductData() {
     }
 });
 
-
+// Add product
   $('#btnAddProd').on('click', addProduct);
-
   function addProduct(event) {
-      event.preventDefault();
-  
-      const formDataX = new FormData();
-      formDataX.append('name', $('#pName').val());
-      formDataX.append('cat', $('#pCat').val());
-      formDataX.append('quan', $('#pQa').val());
-      formDataX.append('img', $('#pPic')[0].files[0]);
-    
-      $.ajax({
-          url: 'api/product/create.php',
-          method: 'POST',
-          processData: false,
-          contentType: false,
-          data: formDataX,
-          success: function(data) {
-              if (data.res === 'success') {
-                  location.reload();
-              } else {
-                  console.error('Newton 2nd law:', data.error);
-              }
-          },
-          error: function(xhr, status, error) {
-              console.error('Newton 1st law:', error);
+    event.preventDefault();
+
+    const formDataX = new FormData();
+    formDataX.append('name', $('#pName').val());
+    formDataX.append('cat', $('#pCat').val()); // Include selected category
+    formDataX.append('quan', $('#pQa').val());
+    formDataX.append('img', $('#pPic')[0].files[0]);
+
+    $.ajax({
+        url: 'api/product/create.php',
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        data: formDataX,
+        success: function(data) {
+            if (data.res === 'success') {
+                $('#addProductModal').modal('hide'); // Hide modal on success
+                location.reload();
+            } else {
+                console.error('Newton 2nd law:', data.error);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Newton 1st law:', error);
+        },
+        complete: function() {
+            function addProduct(event) {
+                event.preventDefault();
+            
+                const formDataX = new FormData();
+                formDataX.append('name', $('#pName').val());
+                formDataX.append('cat', $('#pCat').val()); // Include selected category
+                formDataX.append('quan', $('#pQa').val());
+                formDataX.append('img', $('#pPic')[0].files[0]);
+            
+                $.ajax({
+                    url: 'api/product/create.php',
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: formDataX,
+                    success: function(data) {
+                        if (data.res === 'success') {
+                           
+                            location.reload();
+                        } else {
+                            console.error('Newton 2nd law:', data.error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Newton 1st law:', error);
+                    },
+                    complete: function() {
+                        location.reload();
+                        $('#addProductModal').modal('hide');
+                        
+                    }
+                });
+            }
+            location.reload();
+            // Ensure modal hides even if there's an error
+            $('#addProductModal').modal('hide');
+
+            
+            $('#btnAddProd').on('click', addProduct);
+            function addProduct(event) {
+              event.preventDefault();
+          
+              const formDataX = new FormData();
+              formDataX.append('name', $('#pName').val());
+              formDataX.append('cat', $('#pCat').val()); // Include selected category
+              formDataX.append('quan', $('#pQa').val());
+              formDataX.append('img', $('#pPic')[0].files[0]);
+          
+              $.ajax({
+                  url: 'api/product/create.php',
+                  method: 'POST',
+                  processData: false,
+                  contentType: false,
+                  data: formDataX,
+                  success: function(data) {
+                      if (data.res === 'success') {
+                          $('#addProductModal').modal('hide'); // Hide modal on success
+                          location.reload();
+                      } else {
+                          console.error('Newton 2nd law:', data.error);
+                      }
+                  },
+                  error: function(xhr, status, error) {
+                      console.error('Newton 1st law:', error);
+                  },
+                  complete: function() {
+                      function addProduct(event) {
+                          event.preventDefault();
+                      
+                          const formDataX = new FormData();
+                          formDataX.append('name', $('#pName').val());
+                          formDataX.append('cat', $('#pCat').val()); // Include selected category
+                          formDataX.append('quan', $('#pQa').val());
+                          formDataX.append('img', $('#pPic')[0].files[0]);
+                      
+                          $.ajax({
+                              url: 'api/product/create.php',
+                              method: 'POST',
+                              processData: false,
+                              contentType: false,
+                              data: formDataX,
+                              success: function(data) {
+                                  if (data.res === 'success') {
+                                    location.reload();
+                                  } else {
+                                      console.error('Newton 2nd law:', data.error);
+                                  }
+                              },
+                              error: function(xhr, status, error) {
+                                  console.error('Newton 1st law:', error);
+                              },
+                              complete: function() {
+                                  location.reload();
+                                  $('#addProductModal').modal('hide');
+                                  
+                              }
+                          });
+                      }
+                      
+                      // Ensure modal hides even if there's an error
+                      $('#addProductModal').modal('hide');
+                      location.reload();
+                  }
+              });
+              location.reload();
           }
-      });
-  }  
+          location.reload();
+        }
+       
+    });
+}
+
+
+
 
 
   addEventListener("click", function (event) {
@@ -125,13 +238,18 @@ function loadProductData() {
         contentType: false,
         success: function(data) {
             if (data.res === "success") {
+                $('#addCategoryModal').modal('hide');
                 location.reload();
             }
         },
         error: function(xhr, status, error) {
-            alert(error);
+            $('#addCategoryModal').modal('hide');
+            location.reload();
         }
+       
     });
+    $('#addCategoryModal').modal('hide');
+    location.reload();
 });
 
   $(document).on("click", ".btnProdDelete", function(event) {
