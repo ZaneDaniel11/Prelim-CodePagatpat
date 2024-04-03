@@ -1,5 +1,5 @@
 <?php
-include_once("../dbconnect.php");
+include('dbconnect.php');
 
 $id = $_POST['id'];
 $name = $_POST['name'];
