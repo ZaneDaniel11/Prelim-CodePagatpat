@@ -22,26 +22,25 @@ function loadData() {
 loadData();
 
 $("#btnAddCategory").click(function () {
-  var categoryName = document.getElementById("#categoryName").value;
+  // Corrected line to retrieve the value of categoryName
+  var categoryName = document.getElementById("categoryName").value;
 
   if (categoryName.length > 0) {
-    $.ajax({
-      url: "api/categories-create.php",
-      type: "GET",
-      data: {
-        name: categoryName,
-      },
-    }).done(function (data) {
-      let result = JSON.parse(data);
+      $.ajax({
+          url: `api/categories-create.php?name=${categoryName}`,
+          type: "GET"
+      }).done(function (data) {
+          let result = JSON.parse(data);
 
-      if (result.res == "success") {
-        location.reload();
-        $("#exampleModal").modal("toggle");
-        document.querySelector("#form").reset();
-      }
-    });
+          if (result.res == "success") {
+              location.reload();
+              $("#exampleModal").modal("toggle");
+              $("#form").trigger("reset");
+          }
+      });
   }
 });
+
 
 $(document).on("click", ".btnUpdate", function(){
   var categoryId = $(this).closest("tr").find(".tdID").text();
